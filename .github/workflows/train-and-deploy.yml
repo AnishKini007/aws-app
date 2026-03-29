@@ -87,7 +87,7 @@ jobs:
       - name: Configure DVC remote
         working-directory: model
         run: |
-          dvc remote add -d s3remote s3://${{ secrets.DATA_BUCKET_NAME }}/dvc-cache
+          dvc remote add -d -f s3remote s3://${{ secrets.DATA_BUCKET_NAME }}/dvc-cache
           dvc remote modify s3remote region ${{ secrets.AWS_REGION }}
 
       - name: Pull data from DVC remote
