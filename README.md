@@ -131,7 +131,7 @@ dvc repro
 | Secret | Where to get it |
 |---|---|
 | `AWS_ROLE_ARN` | Create an OIDC IAM role for GitHub Actions |
-| `AWS_REGION` | e.g. `ap-south-1` |
+| `AWS_REGION` | e.g. `ap-south-1`|
 | `ECR_REPOSITORY_URL` | `terraform output ecr_repository_url` |
 | `MLFLOW_TRACKING_URI` | `terraform output mlflow_tracking_uri` |
 | `ECS_CLUSTER_NAME` | `terraform output ecs_cluster_name` |
