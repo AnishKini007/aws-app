@@ -8,7 +8,6 @@ Output: processed train/test splits saved to data/processed/
 import os
 import argparse
 import pandas as pd
-import numpy as np
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import LabelEncoder
 import logging
