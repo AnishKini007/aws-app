@@ -92,7 +92,7 @@ jobs:
 
       - name: Pull data from DVC remote
         working-directory: model
-        run: dvc pull data/raw
+        run: dvc pull data/raw/WA_Fn-UseC_-Telco-Customer-Churn.csv.dvc
 
       - name: Run DVC pipeline (preprocess → train → evaluate)
         working-directory: model
