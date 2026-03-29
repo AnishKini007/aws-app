@@ -1,0 +1,43 @@
+# DVC pipeline — run with: dvc repro
+# Each stage is cached; only re-runs if its deps/params change.
+
+stages:
+  preprocess:
+    cmd: python src/preprocess.py
+          --input data/raw/WA_Fn-UseC_-Telco-Customer-Churn.csv
+          --output-dir data/processed
+          --test-size ${preprocess.test_size}
+          --random-state ${preprocess.random_state}
+    deps:
+      - src/preprocess.py
+      - data/raw/WA_Fn-UseC_-Telco-Customer-Churn.csv
+    params:
+      - params.yaml:
+          - preprocess
+    outs:
+      - data/processed/train.csv
+      - data/processed/test.csv
+
+  train:
+    cmd: python src/train.py
+          --params params.yaml
+          --train-data data/processed/train.csv
+          --test-data  data/processed/test.csv
+    deps:
+      - src/train.py
+      - data/processed/train.csv
+      - data/processed/test.csv
+    params:
+      - params.yaml:
+          - train
+    outs:
+      - mlflow_run_id.txt
+
+  evaluate:
+    cmd: python src/evaluate.py
+    deps:
+      - src/evaluate.py
+      - mlflow_run_id.txt
+    params:
+      - params.yaml:
+          - evaluate

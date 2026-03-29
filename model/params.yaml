@@ -1,0 +1,16 @@
+preprocess:
+  test_size: 0.2
+  random_state: 42
+
+train:
+  n_estimators: 200
+  max_depth: 4
+  learning_rate: 0.05
+  subsample: 0.8
+  random_state: 42
+
+evaluate:
+  thresholds:
+    roc_auc: 0.75
+    f1: 0.55
+    accuracy: 0.78

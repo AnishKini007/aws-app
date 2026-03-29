@@ -1,0 +1,6 @@
+# Patterns DVC should ignore when scanning for changes
+.git
+.github
+__pycache__
+*.pyc
+.pytest_cache

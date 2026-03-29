@@ -1,0 +1,8 @@
+mlflow[extras]==2.20.2
+scikit-learn==1.6.1
+pandas==2.2.3
+numpy==2.2.4
+boto3==1.34.0
+pyyaml==6.0.2
+# psycopg2-binary is only needed on the MLflow EC2 server (installed via user_data.sh)
+# and is not required for local training or the serving container

@@ -1,0 +1,36 @@
+# Terraform
+infra/.terraform/
+infra/.terraform.lock.hcl
+infra/terraform.tfvars
+infra/*.tfstate
+infra/*.tfstate.backup
+infra/crash.log
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+dist/
+build/
+.venv/
+venv/
+.pytest_cache/
+.coverage
+htmlcov/
+
+# DVC — track .dvc pointer files but not the actual data
+model/data/raw/*
+!model/data/raw/*.dvc
+model/data/processed/*
+!model/data/processed/*.dvc
+model/mlflow_run_id.txt
+!model/data/.gitkeep
+
+# Environment
+.env
+*.env
+
+# IDE
+.vscode/
+.idea/
+*.swp
