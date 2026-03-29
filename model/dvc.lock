@@ -1,0 +1,76 @@
+schema: '2.0'
+stages:
+  preprocess:
+    cmd: python src/preprocess.py --input 
+      data/raw/WA_Fn-UseC_-Telco-Customer-Churn.csv --output-dir data/processed 
+      --test-size 0.2 --random-state 42
+    deps:
+    - path: data/raw/WA_Fn-UseC_-Telco-Customer-Churn.csv
+      hash: md5
+      md5: 0f9de68e012bd3aed5fa7cdc9fc421af
+      size: 977501
+    - path: src/preprocess.py
+      hash: md5
+      md5: cc427557fab7a8fc21458c042817b570
+      size: 3422
+    params:
+      params.yaml:
+        preprocess:
+          test_size: 0.2
+          random_state: 42
+    outs:
+    - path: data/processed/test.csv
+      hash: md5
+      md5: 3ef12164fec8a03769beaa69d0305058
+      size: 68287
+    - path: data/processed/train.csv
+      hash: md5
+      md5: dd80b8eacdd1a309e6f53a21b39a9cbe
+      size: 272636
+  train:
+    cmd: python src/train.py --params params.yaml --train-data 
+      data/processed/train.csv --test-data  data/processed/test.csv
+    deps:
+    - path: data/processed/test.csv
+      hash: md5
+      md5: 3ef12164fec8a03769beaa69d0305058
+      size: 68287
+    - path: data/processed/train.csv
+      hash: md5
+      md5: dd80b8eacdd1a309e6f53a21b39a9cbe
+      size: 272636
+    - path: src/train.py
+      hash: md5
+      md5: 4257fea66573ec3aaae4dca1366559b4
+      size: 3441
+    params:
+      params.yaml:
+        train:
+          n_estimators: 200
+          max_depth: 4
+          learning_rate: 0.05
+          subsample: 0.8
+          random_state: 42
+    outs:
+    - path: mlflow_run_id.txt
+      hash: md5
+      md5: 3240682b1e4ed1e4cb497ab14764c063
+      size: 32
+  evaluate:
+    cmd: python src/evaluate.py
+    deps:
+    - path: mlflow_run_id.txt
+      hash: md5
+      md5: 3240682b1e4ed1e4cb497ab14764c063
+      size: 32
+    - path: src/evaluate.py
+      hash: md5
+      md5: 0d9f91301edd5049a0409a13e9e34074
+      size: 3713
+    params:
+      params.yaml:
+        evaluate:
+          thresholds:
+            roc_auc: 0.75
+            f1: 0.55
+            accuracy: 0.78
